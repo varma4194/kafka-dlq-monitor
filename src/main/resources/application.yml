@@ -1,0 +1,23 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: dlq-monitor
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+  application:
+    name: kafka-dlq-monitor
+
+server:
+  port: 8090
+
+# Configure DLQ topics to monitor (comma-separated)
+dlq:
+  topics: dlq-topic-1,dlq-topic-2
+
+# Application info
+app:
+  name: Kafka DLQ Monitor
+  version: 1.0.0
